@@ -17,3 +17,10 @@
 	```bash
 	$ vue create simplyByFront
 	```
+
++ 학습 진행 과정
+	1. 개발 환경 준비
+	2. 간단한 게시판 CRUD 구현
+	3. Hash를 이용한 Ajax 호출(뒤로가기 및 원하는 검색 값 URL 생성)
+	4. Vuex 스터디
+	5. 구현 게시판에 Vuex 적용
