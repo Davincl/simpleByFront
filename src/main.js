@@ -19,16 +19,29 @@ new Vue({
   created: function () { // vue 생성 시 실행 되는 사항
     var vm = this
     console.log('created')
+    // 페이지 첫 로드 시 해시 값 체크
+    vm.hashInit();
+    vm.currentRoute = vm.getHash('page');
     // 해쉬 변경 이벤트
     window.addEventListener('hashchange', function() {
+      vm.hashInit();
+    }, false)
+  },
+  methods: {
+    hashInit : function () {
+      var vm = this;
       vm.hash = window.location.hash.substring(1)
       if(vm.hash) {
-      vm.hash.split('&').forEach(function (item) {
-        var temp = item.split('=');
-        vm.hashData[temp[0]] = !temp[1] ? null : temp[1]
-      })
+        vm.hash.split('&').forEach(function (item) {
+          var temp = item.split('=');
+          vm.hashData[temp[0]] = !temp[1] ? null : temp[1]
+        })
       }
-    }, false)
+    },
+    getHash: function (name) {
+      var vm = this;
+      return !vm.hashData[name] ? '' : vm.hashData[name];
+    }
   },
   computed: { // 가변적인 리턴 사항
     ViewComponent(){
