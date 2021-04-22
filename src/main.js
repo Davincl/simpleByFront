@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import Intro from './components/Intro'
 import Board from './components/Board'
+import Write from './components/Write'
+
 
 Vue.config.productionTip = false
 
 const NotFound = { template: '<p>Page Not Found </p>'}
 const routes = { // 페이지 주소 및 컨포넌트 관리
   '': Intro,
-  'board': Board
+  'Board': Board,
+  "Write": Write
 }
 new Vue({
   el: '#app',
@@ -46,7 +49,7 @@ new Vue({
   computed: { // 가변적인 리턴 사항
     ViewComponent(){
       // currentRoute 값 변경에 따른 리턴
-      console.log(this.currentRoute)
+      console.log('computed', this.currentRoute)
       return routes[this.currentRoute] || NotFound
     }	
     },

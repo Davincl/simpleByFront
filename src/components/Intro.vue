@@ -1,7 +1,7 @@
 <template>
   <div id="Intro">
     <h2>{{ msg }}</h2>
-    <a href="#page=board">게시판 이동</a>
+    <a href="#page=Board">게시판 이동</a>
   </div>
 </template>
 
