@@ -12,11 +12,11 @@
             </tr>
           </thead>
           <tbody v-if="null != list && list.length > 0">
-              <tr v-for="item in list" v-bind:key="item">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+              <tr v-for="(item, index) in list" v-bind:key="item.num" >
+                  <td>{{list.length - index}}</td>
+                  <td>{{item.title}}</td>
+                  <td>{{item.regId}}</td>
+                  <td>{{item.regDt}}</td>
               </tr>
           </tbody>
           <tbody v-if="null == list || list.length == 0 ">
@@ -44,6 +44,13 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:9090/';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+
 export default {
   name: 'Board',
   data: function () {
@@ -58,6 +65,16 @@ export default {
   },
   methods: {
     fetchData: function() {
+      var vm = this;
+      axios.get('/api/BoardVo?page=0&size=10&sort=regDt')
+      .then((res) => {
+        console.log("response data : ", res);
+        console.log(typeof res.data._embedded.BoardVo, typeof vm.list);
+        vm.list = res.data._embedded.BoardVo;
+        console.log(res.data._embedded.BoardVo[0]);
+      }).catch((Err) => {
+        console.log(Err);
+      });
       
     }
   }

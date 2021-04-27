@@ -1,8 +1,13 @@
 import Vue from 'vue'
+import axios from 'axios';
 import Intro from './components/Intro'
 import Board from './components/Board'
 import Write from './components/Write'
 
+
+axios.defaults.baseURL = 'http://localhost:9090';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 Vue.config.productionTip = false
 
@@ -44,6 +49,19 @@ new Vue({
     getHash: function (name) {
       var vm = this;
       return !vm.hashData[name] ? '' : vm.hashData[name];
+    },
+    setHash: function (name, value) {
+      var vm = this;
+      vm.hashData[name] = value;
+      window.location.hash = vm.getHashString();
+    },
+    getHashString: function () {
+      var vm = this;
+      var str = "";
+      for(let key in vm.hashData) {
+        str += key + '=' + vm.hashData[key];
+      }
+      return "#" + str;
     }
   },
   computed: { // 가변적인 리턴 사항
